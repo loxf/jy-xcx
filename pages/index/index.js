@@ -31,7 +31,7 @@ Page({
         var headimgurl = userInfo.avatarUrl;
         var recommend = "";
         wx.request({
-          url: 'http://test.jingyizaixian.com/api/loginByXcx',
+          url: 'https://test.jingyizaixian.com/api/loginByXcx',
           method: 'POST',
           data: {
             code: code,

@@ -1,0 +1,8 @@
+<!--logs.wxml-->
+<view class="container log-list">
+  <block>
+    <!-- <text class="item">姓名：{{payData.name}}</text>
+    <text class="item">ID：{{payData.id}}</text>
+    <button bindtap="bindPay"> 确认支付 </button> -->
+  </block>
+</view>

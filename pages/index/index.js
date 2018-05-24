@@ -1,3 +1,4 @@
+const urlConfig = require('../../utils/urlConfig.js')
 //index.js
 //获取应用实例
 const app = getApp()
@@ -31,7 +32,7 @@ Page({
         var headimgurl = userInfo.avatarUrl;
         var recommend = "";
         wx.request({
-          url: 'https://test.jingyizaixian.com/api/loginByXcx',
+          url: urlConfig.api+'/api/loginByXcx',
           method: 'POST',
           data: {
             code: code,

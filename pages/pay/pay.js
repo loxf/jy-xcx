@@ -1,3 +1,4 @@
+const urlConfig = require('../../utils/urlConfig.js')
 Page({
   data: {
   },
@@ -13,15 +14,21 @@ Page({
        'signType': options.signType,
        'paySign': options.paySign,
        'success':function(res){
-          wx.showToast({
-            title:"支付成功！"
-          });
-          wx.navigateBack(3);
+          wx.navigateBack();
        },
        'fail':function(res){
-          wx.showToast({
-            title:"支付失败！"
-          })
+          if(res.errMsg == "requestPayment:fail cancel"){
+            wx.request({
+              url: urlConfig.api+'/api/cancelPay',
+              method: 'POST',
+              data: {
+                orderId: options.orderId,
+                prepayId: packageStr
+              },
+              success: res => {},
+              fail: err => {}
+            })
+          } 
           wx.navigateBack();
        }
     })

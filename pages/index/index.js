@@ -49,6 +49,7 @@ Page({
               console.log("get_token");
               wx.setStorageSync('openid', tokenRes.data.data.openid);
               wx.setStorageSync('token', tokenRes.data.data.token);
+              wx.setStorageSync('custId', tokenRes.data.data.custId);
               wx.redirectTo({
                 url: '../jingyi/jingyi?token='+tokenRes.data.data.token+'&openid='+tokenRes.data.data.openid
               })

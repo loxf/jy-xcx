@@ -5,20 +5,32 @@ const app = getApp()
 
 Page({
   data: {
-    motto: '静怡雅学',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    target:"",
+    custId:""
   },
   //事件处理函数
   nav: function(load) {
     //发起网络请求
+      var _this = this; 
       var token_his = wx.getStorageSync('token');
       var openid_his = wx.getStorageSync('openid');
       if(token_his!=""&&openid_his!=""&&!load){
         console.log("has_token");
+        // wx.showToast({
+        //   title: 'old_' + _this.data.target,
+        //   icon: 'none',
+        //   duration: 20000
+        // })
+        // setTimeout(function(){
+        //   wx.redirectTo({
+        //     url: '../jingyi/jingyi?token='+token_his+'&openid='+openid_his+'&target='+_this.data.target+'&custId='+_this.data.custId
+        //   })
+        // },20000)
         wx.redirectTo({
-          url: '../jingyi/jingyi?token='+token_his+'&openid='+openid_his
+          url: '../jingyi/jingyi?token='+token_his+'&openid='+openid_his+'&target='+_this.data.target
         })
       }else{
         console.log("no_token");
@@ -30,7 +42,7 @@ Page({
         var city = userInfo.city;
         var country = userInfo.country;
         var headimgurl = userInfo.avatarUrl;
-        var recommend = "";
+        var recommend = this.data.custId;
         wx.request({
           url: urlConfig.api+'/api/loginByXcx',
           method: 'POST',
@@ -50,8 +62,18 @@ Page({
               wx.setStorageSync('openid', tokenRes.data.data.openid);
               wx.setStorageSync('token', tokenRes.data.data.token);
               wx.setStorageSync('custId', tokenRes.data.data.custId);
+              // wx.showToast({
+              //   title: 'post_' + _this.data.target,
+              //   icon: 'none',
+              //   duration: 20000
+              // })
+              // setTimeout(function(){
+              //   wx.redirectTo({
+              //   url: '../jingyi/jingyi?token='+tokenRes.data.data.token+'&openid='+tokenRes.data.data.openid+'&target='+_this.data.target+'&custId='+_this.data.custId
+              // })
+              // },20000)
               wx.redirectTo({
-                url: '../jingyi/jingyi?token='+tokenRes.data.data.token+'&openid='+tokenRes.data.data.openid
+                url: '../jingyi/jingyi?token='+tokenRes.data.data.token+'&openid='+tokenRes.data.data.openid+'&target='+_this.data.target
               })
             }else{
               wx.showToast({
@@ -73,6 +95,28 @@ Page({
   },
   onLoad: function (options) {
       var validate = options?options.validate:"yes";
+      var target = urlConfig.addr;
+      var custId = "";
+      // wx.showToast({
+      //   title: "test:"+options.id,
+      //   icon: 'none',
+      //   duration: 8000
+      // })
+      if (options.id) {
+        if(options.id.indexOf(",")>0){
+          var paramArr = options.id.split(",")
+          target = paramArr[1];
+          custId = paramArr[0];
+        }else{
+          custId = options.id;
+        }
+      }
+      this.setData({
+        custId:custId||""
+      })
+      this.setData({
+        target:target
+      })
       var token = wx.getStorageSync('token');
       if(token!=""&&validate!="no"){
         console.log("validate_ok");
@@ -134,6 +178,7 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+    var target = this.data.target;
     this.nav(true);
   }
 })

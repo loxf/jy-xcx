@@ -47,30 +47,29 @@ Page({
       }
       shareObj = parameterResult.id;
     }
-    var title = "静怡雅学文化"
-    debugger;
+    var title = "静怡雅学文化";
     if (options.webViewUrl.indexOf("lessonDetail")>0) {
       param = custId+","+encodeURIComponent(options.webViewUrl);
-      console.log('lessonDetail_/pages/index/index?id='+param)
+      // console.log('lessonDetail_/pages/index/index?id='+param)
       type = "VIDEO";
       title= '课程分享-静怡雅学文化'
     }else if (options.webViewUrl.indexOf("newsDetail")>0) {
-      param = custId+","+encodeURIComponent(options.webViewUrl)
-      console.log('newsDetail_/pages/index/index?id='+param)
+      param = custId+","+encodeURIComponent(options.webViewUrl);
+      // console.log('newsDetail_/pages/index/index?id='+param)
       type = "NEWS";
       title= '新闻分享-静怡雅学文化';
     }else if (options.webViewUrl.indexOf("packageDetail")>0) {
-      param = custId+","+encodeURIComponent(options.webViewUrl)
+      param = custId+","+encodeURIComponent(options.webViewUrl);
       type = "OFFER";
       title = '套餐分享-静怡雅学文化'
-      console.log('packageDetail_/pages/index/index?id='+param)
+      // console.log('packageDetail_/pages/index/index?id='+param)
     }else if (options.webViewUrl.indexOf("activityDetail")>0) {
-      param = custId+","+encodeURIComponent(options.webViewUrl)
+      param = custId+","+encodeURIComponent(options.webViewUrl);
       type = "ACTIVE";
       title = '活动分享-静怡雅学文化'
-      console.log('activityDetail_/pages/index/index?id='+param)
+      // console.log('activityDetail_/pages/index/index?id='+param)
     }else{
-      console.log("home_page")
+      // console.log("home_page")
       type = "INDEX";
       title = '静怡雅学文化';
       param = custId;

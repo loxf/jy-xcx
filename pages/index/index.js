@@ -59,7 +59,7 @@ Page({
               })
             }else{
               wx.showToast({
-                title: '验证失败！' + tokenRes.data.msg,
+                title: '验证失败[0]',
                 icon: 'none',
                 duration: 2000
               })
@@ -67,7 +67,7 @@ Page({
           },
           fail: err => {
             wx.showToast({
-              title: '验证失败！',
+              title: '验证失败[1]',
               icon: 'none',
               duration: 2000
             })
@@ -150,7 +150,7 @@ Page({
               }
             } else {
               wx.showToast({
-                title: '登录失败！' + res.msg,
+                title: '登录失败[0]',
                 icon: 'none',
                 duration: 2000
               })
@@ -163,7 +163,7 @@ Page({
   getUserInfo: function(e) {
     if(e.detail.errMsg != "getUserInfo:ok"){
       wx.showToast({
-        title: '点击授权登陆按钮并选择允许后才能登陆！',
+        title: '请点击授权登陆',
         icon:"none",
         duration: 10000
       }) 

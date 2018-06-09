@@ -54,7 +54,9 @@ Page({
             nickname: nickname,
             country: country,
             headImgUrl: headimgurl,
-            recommend: recommend
+            recommend: recommend,
+            iv:app.globalData.iv,
+            encryptedData:app.globalData.encryptedData
           },
           success: tokenRes => {
             if (tokenRes.data.code == "1") {
@@ -132,6 +134,12 @@ Page({
                 console.log("has_app.globalData.userInfo");
                 this.setData({
                   userInfo: app.globalData.userInfo,
+                  iv: app.globalData.iv,
+                  encryptedData:app.globalData.encryptedData,
+                  hasUserInfo: true
+                })
+                this.setData({
+                  userInfo: app.globalData.userInfo,
                   hasUserInfo: true
                 })
                 this.nav(true);
@@ -139,9 +147,10 @@ Page({
                 // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
                 // 所以此处加入 callback 以防止这种情况
                 app.userInfoReadyCallback = res => {
-                  console.log("callback_app.globalData.userInfo");
                   this.setData({
                     userInfo: res.userInfo,
+                    iv: res.iv,
+                    encryptedData:res.encryptedData,
                     hasUserInfo: true
                   })
                   this.nav(true);
@@ -150,9 +159,13 @@ Page({
                 // 在没有 open-type=getUserInfo 版本的兼容处理
                 wx.getUserInfo({
                   success: res => {
-                    app.globalData.userInfo = res.userInfo
+                    app.globalData.userInfo = res.userInfo;
+                    app.globalData.iv = res.iv;
+                    app.globalData.encryptedData = res.encryptedData;
                     this.setData({
                       userInfo: res.userInfo,
+                      iv: res.iv,
+                      encryptedData:res.encryptedData,
                       hasUserInfo: true
                     })
                     this.nav(true);
@@ -172,13 +185,24 @@ Page({
     }
   },
   getUserInfo: function(e) {
-    console.log("get_app.globalData.userInfo");
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-    var target = this.data.target;
-    this.nav(true);
+    if(e.detail.errMsg != "getUserInfo:ok"){
+      wx.showToast({
+        title: '点击授权登陆按钮并选择允许后才能登陆！',
+        icon:"none",
+        duration: 10000
+      }) 
+    }else{
+      app.globalData.userInfo = e.detail.userInfo;
+      app.globalData.iv = e.detail.iv
+      app.globalData.encryptedData = e.detail.encryptedData
+      this.setData({
+        userInfo: e.detail.userInfo,
+        iv: e.detail.iv,
+        encryptedData:e.detail.encryptedData,
+        hasUserInfo: true
+      })
+      var target = this.data.target;
+      this.nav(true);
+    }
   }
 })

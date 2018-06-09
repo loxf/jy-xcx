@@ -19,16 +19,6 @@ Page({
       var openid_his = wx.getStorageSync('openid');
       if(token_his!=""&&openid_his!=""&&!load){
         console.log("has_token");
-        // wx.showToast({
-        //   title: 'old_' + _this.data.target,
-        //   icon: 'none',
-        //   duration: 20000
-        // })
-        // setTimeout(function(){
-        //   wx.redirectTo({
-        //     url: '../jingyi/jingyi?token='+token_his+'&openid='+openid_his+'&target='+_this.data.target+'&custId='+_this.data.custId
-        //   })
-        // },20000)
         wx.redirectTo({
           url: '../jingyi/jingyi?token='+token_his+'&openid='+openid_his+'&target='+_this.data.target
         })
@@ -64,16 +54,6 @@ Page({
               wx.setStorageSync('openid', tokenRes.data.data.openid);
               wx.setStorageSync('token', tokenRes.data.data.token);
               wx.setStorageSync('custId', tokenRes.data.data.custId);
-              // wx.showToast({
-              //   title: 'post_' + _this.data.target,
-              //   icon: 'none',
-              //   duration: 20000
-              // })
-              // setTimeout(function(){
-              //   wx.redirectTo({
-              //   url: '../jingyi/jingyi?token='+tokenRes.data.data.token+'&openid='+tokenRes.data.data.openid+'&target='+_this.data.target+'&custId='+_this.data.custId
-              // })
-              // },20000)
               wx.redirectTo({
                 url: '../jingyi/jingyi?token='+tokenRes.data.data.token+'&openid='+tokenRes.data.data.openid+'&target='+_this.data.target
               })
@@ -99,11 +79,6 @@ Page({
       var validate = options?options.validate:"yes";
       var target = urlConfig.addr;
       var custId = "";
-      // wx.showToast({
-      //   title: "test:"+options.id,
-      //   icon: 'none',
-      //   duration: 8000
-      // })
       if (options.id) {
         if(options.id.indexOf(",")>0){
           var paramArr = options.id.split(",")
@@ -158,6 +133,7 @@ Page({
               } else {
                 // 在没有 open-type=getUserInfo 版本的兼容处理
                 wx.getUserInfo({
+                  lang:"zh_CN",
                   success: res => {
                     app.globalData.userInfo = res.userInfo;
                     app.globalData.iv = res.iv;

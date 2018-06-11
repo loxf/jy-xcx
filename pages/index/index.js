@@ -79,7 +79,6 @@ Page({
       var validate = options?options.validate:"yes";
       var target = urlConfig.addr;
       var custId = "";
-      options.id = ",https%3A%2F%2Ftest.jingyizaixian.com%2FlessonDetail%3Fid%3DOFFER0569251582397200163E0F891F4" 
       if (options.id) {
         if(options.id.indexOf(",")>-1){
           var paramArr = options.id.split(",")

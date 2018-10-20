@@ -12,4 +12,4 @@ const url = {
         addr:"https://www.jingyizaixian.com"
     }
 }
-module.exports = url.product;
+module.exports = url.test;
